@@ -1,0 +1,462 @@
+{
+  "input": {
+    "workflow": {
+      "3": {
+        "inputs": {
+          "seed": 925369653968744,
+          "steps": 4,
+          "cfg": 1,
+          "sampler_name": "euler",
+          "scheduler": "simple",
+          "denoise": 1,
+          "model": [
+            "75",
+            0
+          ],
+          "positive": [
+            "76",
+            0
+          ],
+          "negative": [
+            "77",
+            0
+          ],
+          "latent_image": [
+            "88",
+            0
+          ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+          "title": "👔 KSampler: Try-On Pass (4 steps)"
+        }
+      },
+      "8": {
+        "inputs": {
+          "samples": [
+            "3",
+            0
+          ],
+          "vae": [
+            "39",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "37": {
+        "inputs": {
+          "filename": "qwen_image_edit_fp8_e4m3fn.safetensors"
+        },
+        "class_type": "UNETLoader",
+        "_meta": {
+          "title": "UNETLoader"
+        }
+      },
+      "38": {
+        "inputs": {
+          "filename": "qwen_2.5_vl_7b_fp8_scaled.safetensors"
+        },
+        "class_type": "CLIPLoader",
+        "_meta": {
+          "title": "CLIPLoader"
+        }
+      },
+      "39": {
+        "inputs": {
+          "filename": "qwen_image_vae.safetensors"
+        },
+        "class_type": "VAELoader",
+        "_meta": {
+          "title": "VAELoader"
+        }
+      },
+      "60": {
+        "inputs": {
+          "filename_prefix": "VTON_Output",
+          "images": [
+            "8",
+            0
+          ]
+        },
+        "class_type": "SaveImage",
+        "_meta": {
+          "title": "SaveImage"
+        }
+      },
+      "66": {
+        "inputs": {
+          "value": 3,
+          "model": [
+            "94",
+            0
+          ]
+        },
+        "class_type": "ModelSamplingAuraFlow",
+        "_meta": {
+          "title": "ModelSamplingAuraFlow"
+        }
+      },
+      "75": {
+        "inputs": {
+          "value": 1,
+          "model": [
+            "66",
+            0
+          ]
+        },
+        "class_type": "CFGNorm",
+        "_meta": {
+          "title": "CFGNorm"
+        }
+      },
+      "76": {
+        "inputs": {
+          "filename": "put the clothes on the left onto the person on the right.",
+          "clip": [
+            "38",
+            0
+          ],
+          "vae": [
+            "39",
+            0
+          ],
+          "image": [
+            "116",
+            0
+          ]
+        },
+        "class_type": "TextEncodeQwenImageEdit",
+        "_meta": {
+          "title": "👔 Try-On Positive Prompt"
+        }
+      },
+      "77": {
+        "inputs": {
+          "text": "",
+          "clip": [
+            "38",
+            0
+          ],
+          "vae": [
+            "39",
+            0
+          ],
+          "image": [
+            "116",
+            0
+          ]
+        },
+        "class_type": "TextEncodeQwenImageEdit",
+        "_meta": {
+          "title": "👔 Try-On Negative (empty)"
+        }
+      },
+      "78": {
+        "inputs": {
+          "image": "garment_or_person.png"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+          "title": "🔗 INPUT: Garment OR Person Photo"
+        }
+      },
+      "88": {
+        "inputs": {
+          "pixels": [
+            "116",
+            0
+          ],
+          "vae": [
+            "39",
+            0
+          ]
+        },
+        "class_type": "VAEEncode",
+        "_meta": {
+          "title": "VAEEncode"
+        }
+      },
+      "89": {
+        "inputs": {
+          "filename": "Qwen-Image-Lightning-4steps-V1.0.safetensors",
+          "model": [
+            "37",
+            0
+          ]
+        },
+        "class_type": "LoraLoaderModelOnly",
+        "_meta": {
+          "title": "⚡ LoRA: Lightning (4-step distill)"
+        }
+      },
+      "93": {
+        "inputs": {
+          "text": "nearest-exact",
+          "image": [
+            "78",
+            0
+          ]
+        },
+        "class_type": "ImageScaleToTotalPixels",
+        "_meta": {
+          "title": "ImageScaleToTotalPixels"
+        }
+      },
+      "94": {
+        "inputs": {
+          "filename": "qwen\\edit\\clothes_tryon_qwen-edit-lora.safetensors",
+          "model": [
+            "89",
+            0
+          ]
+        },
+        "class_type": "LoraLoaderModelOnly",
+        "_meta": {
+          "title": "👔 LoRA: Clothes Try-On (str 1.5)"
+        }
+      },
+      "100": {
+        "inputs": {
+          "filename": "microsoft/Florence-2-base"
+        },
+        "class_type": "DownloadAndLoadFlorence2Model",
+        "_meta": {
+          "title": "🔍 Florence2 Model Loader"
+        }
+      },
+      "101": {
+        "inputs": {
+          "text": "caption",
+          "florence2_model": [
+            "100",
+            0
+          ],
+          "image": [
+            "93",
+            0
+          ]
+        },
+        "class_type": "Florence2Run",
+        "_meta": {
+          "title": "🔍 Florence2 Classify — Read output, set Switch below"
+        }
+      },
+      "104": {
+        "inputs": {
+          "filename": "qwen\\edit\\outfit_extractor_qwen-edit-lora.safetensors",
+          "model": [
+            "89",
+            0
+          ]
+        },
+        "class_type": "LoraLoaderModelOnly",
+        "_meta": {
+          "title": "✂️ LoRA: Outfit Extractor (str 1.75)"
+        }
+      },
+      "105": {
+        "inputs": {
+          "value": 3,
+          "model": [
+            "104",
+            0
+          ]
+        },
+        "class_type": "ModelSamplingAuraFlow",
+        "_meta": {
+          "title": "ModelSamplingAuraFlow"
+        }
+      },
+      "106": {
+        "inputs": {
+          "value": 1,
+          "model": [
+            "105",
+            0
+          ]
+        },
+        "class_type": "CFGNorm",
+        "_meta": {
+          "title": "CFGNorm"
+        }
+      },
+      "107": {
+        "inputs": {
+          "text": "remove the person and extract their outfit, place the clothing flat on a white background",
+          "clip": [
+            "38",
+            0
+          ],
+          "vae": [
+            "39",
+            0
+          ],
+          "image": [
+            "93",
+            0
+          ]
+        },
+        "class_type": "TextEncodeQwenImageEdit",
+        "_meta": {
+          "title": "✂️ Extraction Positive Prompt"
+        }
+      },
+      "108": {
+        "inputs": {
+          "text": "",
+          "clip": [
+            "38",
+            0
+          ],
+          "vae": [
+            "39",
+            0
+          ],
+          "image": [
+            "93",
+            0
+          ]
+        },
+        "class_type": "TextEncodeQwenImageEdit",
+        "_meta": {
+          "title": "✂️ Extraction Negative (empty)"
+        }
+      },
+      "109": {
+        "inputs": {
+          "pixels": [
+            "93",
+            0
+          ],
+          "vae": [
+            "39",
+            0
+          ]
+        },
+        "class_type": "VAEEncode",
+        "_meta": {
+          "title": "VAEEncode"
+        }
+      },
+      "110": {
+        "inputs": {
+          "seed": 42,
+          "steps": 6,
+          "cfg": 1,
+          "sampler_name": "euler",
+          "scheduler": "simple",
+          "denoise": 1,
+          "model": [
+            "106",
+            0
+          ],
+          "positive": [
+            "107",
+            0
+          ],
+          "negative": [
+            "108",
+            0
+          ],
+          "latent_image": [
+            "109",
+            0
+          ]
+        },
+        "class_type": "KSampler",
+        "_meta": {
+          "title": "✂️ KSampler: Extraction Pass (6 steps)"
+        }
+      },
+      "111": {
+        "inputs": {
+          "samples": [
+            "110",
+            0
+          ],
+          "vae": [
+            "39",
+            0
+          ]
+        },
+        "class_type": "VAEDecode",
+        "_meta": {
+          "title": "VAEDecode"
+        }
+      },
+      "112": {
+        "inputs": {
+          "value": 2,
+          "input1": [
+            "111",
+            0
+          ],
+          "input2": [
+            "93",
+            0
+          ]
+        },
+        "class_type": "ImpactSwitch",
+        "_meta": {
+          "title": "🔀 SWITCH: 1=Extracted | 2=FlatGarment(default)"
+        }
+      },
+      "113": {
+        "inputs": {
+          "text": "nearest-exact",
+          "image": [
+            "112",
+            0
+          ]
+        },
+        "class_type": "ImageScaleToTotalPixels",
+        "_meta": {
+          "title": "Scale Garment → 0.5MP"
+        }
+      },
+      "114": {
+        "inputs": {
+          "image": "target_person.png"
+        },
+        "class_type": "LoadImage",
+        "_meta": {
+          "title": "👤 INPUT: Target Person"
+        }
+      },
+      "115": {
+        "inputs": {
+          "text": "nearest-exact",
+          "image": [
+            "114",
+            0
+          ]
+        },
+        "class_type": "ImageScaleToTotalPixels",
+        "_meta": {
+          "title": "Scale Person → 0.5MP"
+        }
+      },
+      "116": {
+        "inputs": {
+          "text": "right",
+          "image1": [
+            "113",
+            0
+          ],
+          "image2": [
+            "115",
+            0
+          ]
+        },
+        "class_type": "ImageConcanate",
+        "_meta": {
+          "title": "🖼️ Composite: [Garment LEFT | Person RIGHT]"
+        }
+      }
+    }
+  }
+}
