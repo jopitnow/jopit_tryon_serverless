@@ -71,7 +71,4 @@ RUN comfy model download \
 # ============================================================
 # 4. FLORENCE2 MODEL (pre-download to avoid cold start penalty)
 # ============================================================
-RUN python -c "
-from huggingface_hub import snapshot_download
-snapshot_download('microsoft/Florence-2-base-ft', local_dir='/comfyui/models/LLM/microsoft--Florence-2-base-ft')
-"
+RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('microsoft/Florence-2-base-ft', local_dir='/comfyui/models/LLM/microsoft--Florence-2-base-ft')"
